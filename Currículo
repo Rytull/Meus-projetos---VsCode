@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currículo Profissional</title>
+  <link rel="stylesheet" href="curriculo.css">
+  <!-- Biblioteca para converter o HTML em PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Área do Formulário -->
+    <div class="form-container">
+      <h1>Gerador de Currículo</h1>
+      <form id="formulario">
+        <div class="form-group">
+          <label for="foto">Foto de Perfil:</label>
+          <input type="file" id="foto" accept="image/*">
+        </div>
+        <div class="form-group">
+          <label for="nome">Nome Completo:</label>
+          <input type="text" id="nome" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone:</label>
+          <input type="tel" id="telefone" required>
+        </div>
+        <div class="form-group">
+          <label for="endereco">Endereço:</label>
+          <input type="text" id="endereco" required>
+        </div>
+        <div class="form-group">
+          <label for="linkedin">LinkedIn/Portfólio:</label>
+          <input type="text" id="linkedin">
+        </div>
+        <div class="form-group">
+          <label for="objetivo">Objetivo Profissional:</label>
+          <textarea id="objetivo" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="formacao">Formação Acadêmica:</label>
+          <textarea id="formacao" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="experiencia">Experiência Profissional:</label>
+          <textarea id="experiencia" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="habilidades">Habilidades e Qualificações:</label>
+          <textarea id="habilidades" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="idiomas">Idiomas:</label>
+          <textarea id="idiomas" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="certificacoes">Certificações e Cursos Extras:</label>
+          <textarea id="certificacoes"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="premios">Prêmios e Reconhecimentos:</label>
+          <textarea id="premios"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="referencias">Referências Profissionais:</label>
+          <textarea id="referencias"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit">Gerar Currículo</button>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Área de Visualização do Currículo -->
+    <div id="curriculo-container" class="preview-container" style="display: none;">
+      <div id="curriculo">
+        <div class="header-curriculo">
+          <img id="imagem-preview" class="foto-perfil" src="" alt="Foto de Perfil">
+          <div class="header-info">
+            <h2 id="res-nome">Nome Completo</h2>
+            <p><strong>Email:</strong> <span id="res-email"></span></p>
+            <p><strong>Telefone:</strong> <span id="res-telefone"></span></p>
+            <p><strong>Endereço:</strong> <span id="res-endereco"></span></p>
+            <p><strong>LinkedIn/Portfólio:</strong> <span id="res-linkedin"></span></p>
+          </div>
+        </div>
+        <div class="section">
+          <h3>Objetivo Profissional</h3>
+          <p id="res-objetivo"></p>
+        </div>
+        <div class="section">
+          <h3>Formação Acadêmica</h3>
+          <p id="res-formacao"></p>
+        </div>
+        <div class="section">
+          <h3>Experiência Profissional</h3>
+          <p id="res-experiencia"></p>
+        </div>
+        <div class="section">
+          <h3>Habilidades e Qualificações</h3>
+          <p id="res-habilidades"></p>
+        </div>
+        <div class="section">
+          <h3>Idiomas</h3>
+          <p id="res-idiomas"></p>
+        </div>
+        <div class="section">
+          <h3>Certificações e Cursos Extras</h3>
+          <p id="res-certificacoes"></p>
+        </div>
+        <div class="section">
+          <h3>Prêmios e Reconhecimentos</h3>
+          <p id="res-premios"></p>
+        </div>
+        <div class="section">
+          <h3>Referências Profissionais</h3>
+          <p id="res-referencias"></p>
+        </div>
+      </div>
+      <div class="pdf-btn-container">
+        <button onclick="baixarPDF()">Baixar PDF</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="curriculo.js"></script>
+</body>
+</html>
+
+/* Estilos Globais */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+/* Container Principal */
+.main-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 20px 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Formulário */
+.form-container {
+  margin-bottom: 30px;
+}
+
+h1 {
+  text-align: center;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #000;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="file"],
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+/* Preview do Currículo */
+.preview-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Cabeçalho do Currículo */
+.header-curriculo {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.foto-perfil {
+  width: 150px;
+  height: auto;       /* Mantém a proporção */
+  max-height: 150px;  /* Limita a altura caso seja muito alta */
+  object-fit: contain;
+  border-radius: 4px;
+  border: 2px solid #000;
+  margin-right: 20px;
+  display: none; /* Será exibida se o usuário selecionar uma imagem */
+}
+
+.header-info h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #000;
+}
+
+.header-info p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+/* Seções do Currículo */
+.section {
+  margin-bottom: 20px;
+}
+
+.section h3 {
+  color: #000;
+  border-bottom: 1px solid #000;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+/* Preserva as quebras de linha */
+#curriculo .section p {
+  white-space: pre-wrap;
+}
+
+/* Botão para PDF */
+.pdf-btn-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+// Permite somente números no campo "telefone"
+document.getElementById("telefone").addEventListener("input", function() {
+  this.value = this.value.replace(/\D/g, "");
+});
+
+// Processa o formulário e atualiza o currículo
+document.getElementById("formulario").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  // Captura dos dados dos campos do formulário
+  const nome = document.getElementById("nome").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const telefone = document.getElementById("telefone").value.trim();
+  const endereco = document.getElementById("endereco").value.trim();
+  const linkedin = document.getElementById("linkedin").value.trim();
+  const objetivo = document.getElementById("objetivo").value.trim();
+  const formacao = document.getElementById("formacao").value.trim();
+  const experiencia = document.getElementById("experiencia").value.trim();
+  const habilidades = document.getElementById("habilidades").value.trim();
+  const idiomas = document.getElementById("idiomas").value.trim();
+  const certificacoes = document.getElementById("certificacoes").value.trim();
+  const premios = document.getElementById("premios").value.trim();
+  const referencias = document.getElementById("referencias").value.trim();
+  const fotoFile = document.getElementById("foto").files[0];
+
+  // Validação simples do e-mail
+  if (!email.includes("@") || !email.includes(".")) {
+    alert("E-mail inválido! Por favor, insira um e-mail válido.");
+    return;
+  }
+
+  // Preenche os dados estáticos do currículo
+  document.getElementById("res-nome").textContent = nome;
+  document.getElementById("res-email").textContent = email;
+  document.getElementById("res-telefone").textContent = telefone;
+  document.getElementById("res-endereco").textContent = endereco;
+  document.getElementById("res-linkedin").textContent = linkedin;
+  
+  // Atualiza os campos multilinha, preservando os saltos de linha
+  document.getElementById("res-objetivo").innerHTML = objetivo.replace(/\n/g, "<br>");
+  document.getElementById("res-formacao").innerHTML = formacao.replace(/\n/g, "<br>");
+  document.getElementById("res-experiencia").innerHTML = experiencia.replace(/\n/g, "<br>");
+  document.getElementById("res-habilidades").innerHTML = habilidades.replace(/\n/g, "<br>");
+  document.getElementById("res-idiomas").innerHTML = idiomas.replace(/\n/g, "<br>");
+  document.getElementById("res-certificacoes").innerHTML = certificacoes.replace(/\n/g, "<br>");
+  document.getElementById("res-premios").innerHTML = premios.replace(/\n/g, "<br>");
+  document.getElementById("res-referencias").innerHTML = referencias.replace(/\n/g, "<br>");
+  
+  // Se uma foto foi selecionada, atualiza a imagem de perfil
+  if (fotoFile) {
+    const url = URL.createObjectURL(fotoFile);
+    const imgPreview = document.getElementById("imagem-preview");
+    imgPreview.src = url;
+    imgPreview.style.display = "block";
+  }
+
+  // Exibe a área de visualização do currículo
+  document.getElementById("curriculo-container").style.display = "block";
+});
+
+// Função para gerar e baixar o PDF (converte apenas o conteúdo do "curriculo")
+function baixarPDF() {
+  const element = document.getElementById("curriculo");
+  const opt = {
+    margin: 10,
+    filename: 'curriculo.pdf',
+    html2canvas: { scale: 1.5 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
+}
